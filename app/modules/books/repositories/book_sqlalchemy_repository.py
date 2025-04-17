@@ -27,6 +27,7 @@ class BookSQLAlchemyRepository(BookRepository):
         book = Book(**book_data.model_dump())
         self._session.add(book)
         self._session.commit()
+        self._session.refresh(book)
         return BookRead(**book.model_dump())
 
     def update_book(self, id: int, book_data: BookUpdate) -> BookRead:
